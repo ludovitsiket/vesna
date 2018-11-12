@@ -9,13 +9,12 @@ def rozklad_spravy(sprava):
 
 def prevod(rozlozene, alphabet):
     ciselna = []
-    i = 0
-    while i < len(rozlozene):
+    for item in range(len(rozlozene)):
         try:
-            hodnota = alphabet.index(rozlozene[i])
+            hodnota = alphabet.index(rozlozene[item])
             ciselna.append(hodnota)
-            i = i+1
-        except ValueError:
+        except ValueError as e:
+            print(e)
             sys.exit()
     return ciselna
 
@@ -25,7 +24,8 @@ def abeceda():
                "p","q","r","ŕ","s","š","t","ť","u","ú","v","w","x",
                "y","ý","z","ž"]
 
-    znaky = [",",".","!","?","_","-",";","/","=","*"]
+    znaky = [",",".","!","?","_","-",";","/","=","*",
+    "@","#","$","%","^","&", " "]
 
     velke_pismena = ["A","Á","B","C","Č","D","Ď","DŽ","E","É","F","G",
                "H","I","Í","J","K","L","Ĺ","Ľ","M","N","Ň","O","Ó",
@@ -34,19 +34,38 @@ def abeceda():
     alphabet = male_pismena + znaky + velke_pismena
     return alphabet
 
+def citaj_subor(subor):
+    with open(subor, 'r') as sprava:
+        obsah = sprava.read()
+        obsah = obsah.replace("\n","")
+    return obsah
+
+def zapis_subor(subor, obsah):
+    with open(subor, 'w') as sprava:
+        sprava.write(str(obsah))
+    return
+
+def help_syntax():
+    print("Skript vyzaduje python3.x")
+    print("Sprava urcena na zakodovanie musi byt ulozena v subore sprava.txt")
+
 def spracovanie(abeceda):
-    # nezvlada znak medzery a hviezdicku na zaciatku
     alphabet = abeceda()
-    sprava = ''
-    if len(sys.argv) != 2:
-        sprava = 'prazdne'
-    else:
-        sprava = sys.argv[1]
+    subor_spravy = "sprava.txt"
+    kod_sprava = "kodovana.txt"
+    try:
+        sprava = citaj_subor(subor_spravy)
+    except FileNotFoundError as e:
+        print(e)
+        help_syntax()
+        sys.exit()
     rozlozene = rozklad_spravy(sprava)
     ciselna = prevod(rozlozene, alphabet)
-    print(ciselna)
+    kod = zapis_subor(kod_sprava, ciselna)
+    print("OK")
 
-def hlavna():
+def main():
     spracovanie(abeceda)
 
-hlavna()
+if __name__ == '__main__':
+  main()
