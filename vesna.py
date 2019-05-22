@@ -25,7 +25,7 @@ def abeceda():
                "y","ý","z","ž"]
 
     znaky = [",",".","!","?","_","-",";","/","=","*",
-    "@","#","$","%","^","&", " "]
+    "@","#","$","%","^","&", " ","+","0","1","2","3","4","5","6","7","8","9"]
 
     velke_pismena = ["A","Á","B","C","Č","D","Ď","DŽ","E","É","F","G",
                "H","I","Í","J","K","L","Ĺ","Ľ","M","N","Ň","O","Ó",
@@ -43,9 +43,9 @@ def make_keys(alphabet):
     return y
 
 def make_dict(alphabet, keys):
-    x=1
+    x=0
     dictionary = dict.fromkeys(keys)
-    while x<(len(alphabet)+1):
+    while x<(len(alphabet)):
         dictionary[x] = alphabet[x-1]
         x+=1
     return dictionary
@@ -87,15 +87,15 @@ def slicing_list(content):
     a=0
     b=3
     character=','
-    while b<(len(content)*2):
-        r=(content[a:b])
-        if character in r:
-            r=r.replace(character,'')
-        result.append(r)
+    dlzka = range(len(content)+b)
+    while b in dlzka:
+        decoded = (content[a:b])
+        if character in decoded:
+             decoded = decoded.replace(character,'')
+        result.append(decoded)
         a+=3
         b+=3
-    print(result)
-#return result
+    return result
 
 def processing_decode(kod_sprava):
     content=[]
@@ -108,8 +108,14 @@ def processing_decode(kod_sprava):
 
 def decoding(kod_sprava, dictionary):
     content = processing_decode(kod_sprava)
-    slicing_list(content)
-    print(content)
+    number_result = slicing_list(content)
+    index = 0
+    while index<len(number_result):
+        for key in number_result:
+            key=str(number_result[index])
+            print(dictionary[int(key)], end='')
+            index +=1
+    print('')
 
 def vynimka(e):
     print(e)
