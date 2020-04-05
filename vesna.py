@@ -2,11 +2,11 @@
 import sys
 
 
-def rozklad_spravy(sprava):
-    upravene = []
-    for znak in sprava:
-        upravene.append(znak)
-    return upravene
+def rozklad_spravy(value):
+    text = []
+    for char in value:
+        text.append(char)
+    return text
 
 
 def prevod(rozlozene, alphabet):
@@ -79,7 +79,7 @@ def zapis_subor(subor, obsah):
 def help_syntax():
     print("Skript vyzaduje python3.x")
     print("""Syntax: python3 vesna.py parameter
-Sprava urcena na zakodovanie musi byt ulozena v subore sprava.txt, 
+Sprava urcena na zakodovanie musi byt ulozena v subore sprava.txt,
 pre dekodovanie musi byt zakodovana sprava ulozena v subore kodovana.txt
 Parametre: 'k' zakodovanie suboru
            'd' dekodovanie suboru""")
@@ -148,19 +148,16 @@ def spracovanie():
     dictionary = make_dict(alphabet, keys)
     subor_spravy = "sprava.txt"
     kod_sprava = "kodovana.txt"
-    if arg == 'k':
-        try:
+    try:
+        if arg == 'k':
             coding(subor_spravy, alphabet, kod_sprava)
-        except FileNotFoundError as e:
-            vynimka(e)
-    elif arg == 'd':
-        try:
+        elif arg == 'd':
             decoding(kod_sprava, dictionary)
-        except FileNotFoundError as e:
-            vynimka(e)
-    else:
-        help_syntax()
-        sys.exit()
+        else:
+            help_syntax()
+            sys.exit()
+    except FileNotFoundError as e:
+        vynimka(e)
 
 
 if __name__ == '__main__':
