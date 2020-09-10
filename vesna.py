@@ -22,18 +22,19 @@ def prevod(rozlozene, alphabet):
 
 
 def abeceda():
-    male_pismena = ["a", "á", "ä", "b", "c", "č", "d", "ď", "dž", "e", "é", "f", "g",
-                    "h", "i", "í", "j", "k", "l", "ĺ", "ľ", "m", "n", "ň", "o", "ó", "ô",
-                    "p", "q", "r", "ŕ", "s", "š", "t", "ť", "u", "ú", "v", "w", "x",
-                    "y", "ý", "z", "ž"]
+    male_pismena = ["a", "á", "ä", "b", "c", "č", "d", "ď", "dž", "e", "é",
+                    "f", "g", "h", "i", "í", "j", "k", "l", "ĺ", "ľ", "m", "n",
+                    "ň", "o", "ó", "ô", "p", "q", "r", "ŕ", "s", "š", "t", "ť",
+                    "u", "ú", "v", "w", "x", "y", "ý", "z", "ž"]
 
     znaky = [",", ".", "!", "?", "_", "-", ";", "/", "=", "*",
-             "@", "#", "$", "%", "^", "&", " ", "+", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+             "@", "#", "$", "%", "^", "&", " ", "+", "0", "1", "2", "3", "4",
+             "5", "6", "7", "8", "9"]
 
-    velke_pismena = ["A", "Á", "B", "C", "Č", "D", "Ď", "DŽ", "E", "É", "F", "G",
-                     "H", "I", "Í", "J", "K", "L", "Ĺ", "Ľ", "M", "N", "Ň", "O", "Ó",
-                     "P", "Q", "R", "Ŕ", "S", "Š", "T", "Ť", "U", "Ú", "V", "W", "X",
-                     "Y", "Ý", "Z", "Ž"]
+    velke_pismena = ["A", "Á", "B", "C", "Č", "D", "Ď", "DŽ", "E", "É", "F",
+                     "G", "H", "I", "Í", "J", "K", "L", "Ĺ", "Ľ", "M", "N",
+                     "Ň", "O", "Ó", "P", "Q", "R", "Ŕ", "S", "Š", "T", "Ť",
+                     "U", "Ú", "V", "W", "X", "Y", "Ý", "Z", "Ž"]
     alphabet = male_pismena + znaky + velke_pismena
     return alphabet
 
@@ -143,6 +144,10 @@ def spracovanie():
     except IndexError as e:
         arg = False
         vynimka(e)
+
+    except SyntaxError as e:
+        print(e)
+        sys.exit()
     alphabet = abeceda()
     keys = make_keys(alphabet)
     dictionary = make_dict(alphabet, keys)
